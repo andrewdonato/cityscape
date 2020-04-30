@@ -1,15 +1,16 @@
 import math 
 
+verticalStreetEdges = []
+horizontalStreetEdges = []
+
+streets = [verticalStreetEdges, horizontalStreetEdges]
+
+buildings = []
+buildingArrays = []
 buildings1 = []
 buildings2 = []
 buildings3 = []
 buildings4 = []
-buildings5 = []
-buildings6 = []
-buildings7 = []
-buildings8 = []
-buildings9 = []
-buildings10 = []
 
 mapTop = 0
 mapBottom = 0
@@ -18,74 +19,67 @@ mapRight = 0
 alleyway = 5
 
 def setup():
-    global mapTop, mapBottom, mapleft, mapRight
+    global mapTop, mapBottom, mapleft, mapRight, streets, verticalStreetEdges, horizontalStreetEdges, buildings
     size(601, 601, P3D)
     mapTop = -height
     mapBottom = height
     mapleft = 0
     mapRight = width
     
+    lineLeft = (width/2 - width/40, 0, 0, width/2 - width/40, 0, height)
+    lineRight = (width/2 + width/40, 0,  0, width/2 + width/40, 0, height)
+    verticalStreetEdges = [lineLeft, lineRight]
+
+    lineUp = (0, 0, height/2 - height/40, width, 0, height/2 - height/40)
+    lineDown = (0, 0, height/2 + height/40, width, 0, height/2 + height/40)
+    horizontalStreetEdges = [lineUp, lineDown]
+
+
+
     camera(width/2.0, -height, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/10.0, 0, 0, 1, 0)
-    createBuildings(middleVerticalStreet()[0], "vertical", buildings1, 20)
-    createBuildings(middleVerticalStreet()[0], "vertical", buildings2, 20)
-    createBuildings(middleHorizontalStreet()[0], "horizontal", buildings3, 20)
-    createBuildings(middleHorizontalStreet()[0], "horizontal", buildings4, 20)
-    createBuildings(leftVerticalStreet()[0], "vertical", buildings5, 20)
-    createBuildings(leftVerticalStreet()[0], "vertical", buildings6, 20)
-    createBuildings(rightVerticalStreet()[0], "vertical", buildings7, 20)
-    createBuildings(rightVerticalStreet()[0], "vertical", buildings8, 20)
-    createBuildings(outsideVerticalStreet()[0], "vertical", buildings9, 20)
-    createBuildings(outsideVerticalStreet()[0], "vertical", buildings10, 20)
+    
+    for i in range(len(verticalStreetEdges)):
+        buildings.append([])
+        createBuildings(verticalStreetEdges[i], "vertical", buildings[i])
+        
+    for i in range(len(horizontalStreetEdges)):
+        buildings.append([])
+        createBuildings(horizontalStreetEdges[i], "horizontal", buildings[i])
+        
+    # createBuildings(verticalStreetEdges[0], "vertical", buildings1, 20)
+    # createBuildings(verticalStreetEdges[0], "vertical", buildings2, 20)
+    # createBuildings(horizontalStreetEdges[0], "horizontal", buildings3, 20)
+    # createBuildings(horizontalStreetEdges[0], "horizontal", buildings4, 20)
+
+    
+    
+
+
+    
     
 def draw():
-    global buildings, buildings1    
-    background(225)
+    global buildings, buildings1, streets, verticalStreetEdges, horizontalStreetEdges, buildings
+    background(255)
     stroke(0)
 
-    # pushMatrix()
-    # fill(0,255,0)
-    # translate(width/2, +1, height/2)
-    # box(width,0,height)
-    # fill(255)
-    # popMatrix()
-    
     # draw grid
     strokeWeight(1)
     showGrid()
     
     # draw street
     strokeWeight(5)
-    line(*middleVerticalStreet()[0])
-    line(*middleVerticalStreet()[1])
-    # line(*middleHorizontalStreet()[0])
-    # line(*middleHorizontalStreet()[1])
-    line(*leftVerticalStreet()[0])
-    line(*leftVerticalStreet()[1])
-    line(*rightVerticalStreet()[0])
-    line(*rightVerticalStreet()[1])
-    line(*outsideVerticalStreet()[0])
-    line(*outsideVerticalStreet()[1])
-    
-    stroke(0)
-    strokeWeight(40)
-    line(width/2, 0, 0, width/2, 0, height)
-    line(width/4, 0, 0, width/4, 0, height)
-    line(3*(width/4) , 0,  0, 3*(width/4) , 0, height)
-    line(0, 0, 0, 0, 0, height)
-    line(width, 0, 0, width, 0, height)
+    line(*verticalStreetEdges[0])
+    line(*verticalStreetEdges[1])
+    line(*horizontalStreetEdges[0])
+    line(*horizontalStreetEdges[1])
     
     # draw buildings
     strokeWeight(5)
-    drawBuildings(middleVerticalStreet()[0], buildings1, "left")
-    drawBuildings(middleVerticalStreet()[1], buildings2, "right")
-    # drawBuildings(middleHorizontalStreet()[0], buildings3, "above")
-    # drawBuildings(middleHorizontalStreet()[1], buildings4, "below")
-    drawBuildings(leftVerticalStreet()[0], buildings5, "left")
-    drawBuildings(leftVerticalStreet()[1], buildings6, "right")
-    drawBuildings(rightVerticalStreet()[0], buildings7, "left")
-    drawBuildings(rightVerticalStreet()[1], buildings8, "right")
-    drawBuildings(outsideVerticalStreet()[0], buildings9, "left")
-    drawBuildings(outsideVerticalStreet()[1], buildings10, "right")
+    drawBuildings(verticalStreetEdges[0], buildings1, "left")
+    drawBuildings(verticalStreetEdges[1], buildings2, "right")
+    drawBuildings(horizontalStreetEdges[0], buildings3, "above")
+    drawBuildings(horizontalStreetEdges[1], buildings4, "below")
+
     # camera
     camera(3*mouseX - width , 2*mouseY - height, 1*(height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/10.0, height/2, 0, 1, 0)
 
@@ -105,37 +99,11 @@ def showGrid():
     strokeWeight(5)
     line(mapleft, 0, 0, mapRight, 0 , 0)
     
-def middleVerticalStreet():
-    lineLeft = (width/2 - width/40, 0, 0, width/2 - width/40, 0, height)
-    lineRight = (width/2 + width/40, 0,  0, width/2 + width/40, 0, height)
-    return lineLeft, lineRight
-
-def leftVerticalStreet():
-    lineLeft = (width/4 - width/40, 0, 0, width/4 - width/40, 0, height)
-    lineRight = (width/4 + width/40, 0,  0, width/4 + width/40, 0, height)
-    return lineLeft, lineRight
-
-def rightVerticalStreet():
-    lineLeft = (3*(width/4) - width/40, 0, 0, 3*(width/4) - width/40, 0, height)
-    lineRight = (3*(width/4) + width/40, 0,  0, 3*(width/4) + width/40, 0, height)
-    return lineLeft, lineRight
-
-def outsideVerticalStreet():
-    lineLeft = (width - width/40, 0,  0, width - width/40, 0, height)
-    lineRight = (0 + width/40, 0, 0, 0 + width/40, 0, height)
-    return lineLeft, lineRight
-
-
-
-def middleHorizontalStreet():
-    lineUp = (0, 0, height/2 - height/40, width, 0, height/2 - height/40)
-    lineDown = (0, 0, height/2 + height/40, width, 0, height/2 + height/40)
-    return lineUp, lineDown    
     
-    
-    
-def createBuildings(lineSegment, orientation, buildingArray=buildings1, amount=15):
+def createBuildings(lineSegment, orientation, buildingArray):
     global buildings
+    print orientation
+    print buildingArray
     strokeWeight(5)
 
     # determine magnitude of line    
@@ -149,8 +117,8 @@ def createBuildings(lineSegment, orientation, buildingArray=buildings1, amount=1
     buildingMagnitude = 0    
     while buildingMagnitude < lineMagnitude :
         
-        boxX = int(random(10, width/10))
-        boxY = int(random(10, height/3))
+        boxX = int(random(10, height/10))
+        boxY = int(random(10, height/10))
         boxZ = int(random(10, height/10))
         # boxX = 50
         # boxY = 50
@@ -166,8 +134,8 @@ def createBuildings(lineSegment, orientation, buildingArray=buildings1, amount=1
             buildingArray.append(building)    
         
     # make skyscraper
-    # skyscraper = len(buildingArray)/2
-    # buildingArray[skyscraper][1] = int(random(60, height/2.5))
+    skyscraper = len(buildingArray)/2
+    buildingArray[skyscraper][1] = int(random(60, height/2.5))
     
                       
 def drawBuildings(streetLine, buildingArray, side):
