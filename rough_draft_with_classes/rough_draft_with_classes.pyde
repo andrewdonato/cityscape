@@ -8,7 +8,7 @@ def setup():
     size(601, 601, P3D)
     
 
-def createStreet(xStart, yStart, zStart, xEnd, yEnd, zEnd, width):
+def createStreet(xStart, yStart, zStart, xEnd, yEnd, zEnd, width=30):
     global streets
     newStreet = Street(xStart, yStart, zStart, xEnd, yEnd, zEnd, width)
     streets.append(newStreet)

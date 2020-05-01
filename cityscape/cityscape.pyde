@@ -19,7 +19,7 @@ alleyway = 5
 
 def setup():
     global mapTop, mapBottom, mapleft, mapRight
-    size(601, 601, P3D)
+    size(701, 701, P3D)
     mapTop = -height
     mapBottom = height
     mapleft = 0
@@ -39,7 +39,7 @@ def setup():
     
 def draw():
     global buildings, buildings1    
-    background(225)
+    background(125)
     stroke(0)
 
     # pushMatrix()
@@ -67,10 +67,26 @@ def draw():
     line(*outsideVerticalStreet()[1])
     
     
+    # streets
     pushMatrix()
-    # box(40, 0, height)
+    fill(0,255,100,100)
+    translate(width/2, +1, height/2)
+    box(width,1,height)
     popMatrix()
-    
+    pushMatrix()
+    translate
+    fill(10)
+    translate(width/2, -1, height/2)
+    box(width/22, 1, height)
+    translate(width/2, 0, 0)
+    box(width/22, 1, height)
+    translate(-width, 0, 0)
+    box(width/22, 1, height)
+    translate(3*width/4, 0, 0)
+    box(width/22, 1, height)
+    translate(-width/2, 0, 0)
+    box(width/22, 1, height)
+    popMatrix()
     
     
     # stroke(0)
@@ -85,6 +101,7 @@ def draw():
     
     # draw buildings
     strokeWeight(5)
+    fill(225)
     drawBuildings(middleVerticalStreet()[0], buildings1, "left")
     drawBuildings(middleVerticalStreet()[1], buildings2, "right")
     # drawBuildings(middleHorizontalStreet()[0], buildings3, "above")
@@ -95,8 +112,9 @@ def draw():
     drawBuildings(rightVerticalStreet()[1], buildings8, "right")
     drawBuildings(outsideVerticalStreet()[0], buildings9, "left")
     drawBuildings(outsideVerticalStreet()[1], buildings10, "right")
+    
     # camera
-    camera(3*mouseX - width , 2*mouseY - height, 1*(height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/10.0, height/2, 0, 1, 0)
+    camera(3*mouseX - width , 3*mouseY - height, 1*(height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/10.0, height/2, 0, 1, 0)
 
 
 def showGrid():
@@ -165,6 +183,8 @@ def createBuildings(lineSegment, orientation, buildingArray=buildings1, amount=1
         # boxY = 50
         # boxZ = 50
         
+        difference = abs(buildingMagnitude - lineMagnitude)
+        
         if orientation == "horizontal" :
             buildingMagnitude += boxX + alleyway
         elif orientation == "vertical" :
@@ -172,7 +192,10 @@ def createBuildings(lineSegment, orientation, buildingArray=buildings1, amount=1
         
         if buildingMagnitude < lineMagnitude :
             building = [boxX, boxY, boxZ]
-            buildingArray.append(building)    
+            buildingArray.append(building)
+        # else:
+        #     building = [[boxX - difference, boxY, boxZ - difference]]
+        #     buildingArray.append(building)
         
     # make skyscraper
     # skyscraper = len(buildingArray)/2
