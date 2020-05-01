@@ -26,6 +26,11 @@ def setup():
     mapRight = width
     
     camera(width/2.0, -height, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/10.0, 0, 0, 1, 0)
+    
+    seedValue = (int(random(2000)))
+    print seedValue
+    randomSeed(seedValue)
+    
     createBuildings(middleVerticalStreet()[0], "vertical", buildings1, 20)
     createBuildings(middleVerticalStreet()[0], "vertical", buildings2, 20)
     createBuildings(middleHorizontalStreet()[0], "horizontal", buildings3, 20)
@@ -39,8 +44,16 @@ def setup():
     
 def draw():
     global buildings, buildings1    
-    background(125)
+    # background(125)
+    background(105,206,235)
+    
     stroke(0)
+
+    ## mouse
+
+    # pushMatrix()
+    # ellipse(mouseX,mouseY, 25, 10)
+    # popMatrix()
 
     # pushMatrix()
     # fill(0,255,0)
@@ -53,7 +66,7 @@ def draw():
     strokeWeight(1)
     showGrid()
     
-    # draw street
+    # draw street lines
     strokeWeight(5)
     line(*middleVerticalStreet()[0])
     line(*middleVerticalStreet()[1])
@@ -67,15 +80,20 @@ def draw():
     line(*outsideVerticalStreet()[1])
     
     
-    # streets
+    # ground
     pushMatrix()
-    fill(0,255,100,100)
+    fill(75,225,100)
+    # fill(75,225,225)
+    # fill(200)
+    
     translate(width/2, +1, height/2)
     box(width,1,height)
     popMatrix()
-    pushMatrix()
-    translate
-    fill(10)
+    
+    
+    # draw streets box
+    fill(50)
+    pushMatrix()    
     translate(width/2, -1, height/2)
     box(width/22, 1, height)
     translate(width/2, 0, 0)
@@ -114,7 +132,7 @@ def draw():
     drawBuildings(outsideVerticalStreet()[1], buildings10, "right")
     
     # camera
-    camera(3*mouseX - width , 3*mouseY - height, 1*(height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/10.0, height/2, 0, 1, 0)
+    camera(3*mouseX - 2*width , 3*mouseY - 2*height, 2*(height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/10.0, height/2, 0, 1, 0)
 
 
 def showGrid():
@@ -218,7 +236,25 @@ def drawBuildings(streetLine, buildingArray, side):
         boxX = building[0]
         boxY = building[1]
         boxZ = building[2]
+        
+        ## building color
+        # fill(255)
+        fill(0,135,219)
+        
+        # randomSeed(1000)
+        # r=int(random(0,255))
+        # randomSeed(1010)
+        # g=int(random(0,255))
+        # randomSeed(1020)
+        # b=int(random(0,255))
+        # # fill(r, g, b)
+        # # randomSeed(1000)
+        # fill(int(random(0,255)),int(random(0,255)),int(random(0,255)))
 
+        
+        
+        
+        
         if side == "left" or side == "right":
             
             # moves buildings along the Z axis down the street
