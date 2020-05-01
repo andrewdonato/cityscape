@@ -66,13 +66,22 @@ def draw():
     line(*outsideVerticalStreet()[0])
     line(*outsideVerticalStreet()[1])
     
-    stroke(0)
-    strokeWeight(40)
-    line(width/2, 0, 0, width/2, 0, height)
-    line(width/4, 0, 0, width/4, 0, height)
-    line(3*(width/4) , 0,  0, 3*(width/4) , 0, height)
-    line(0, 0, 0, 0, 0, height)
-    line(width, 0, 0, width, 0, height)
+    
+    pushMatrix()
+    # box(40, 0, height)
+    popMatrix()
+    
+    
+    
+    # stroke(0)
+    # strokeWeight(40)
+
+        
+    # line(width/2, 0, 0, width/2, 0, height)
+    # line(width/4, 0, 0, width/4, 0, height)
+    # line(3*(width/4) , 0,  0, 3*(width/4) , 0, height)
+    # line(0, 0, 0, 0, 0, height)
+    # line(width, 0, 0, width, 0, height)
     
     # draw buildings
     strokeWeight(5)
