@@ -176,7 +176,7 @@ def createBuildings(lineSegment, orientation, buildingArray=buildings1, amount=1
     buildingMagnitude = 0    
     while buildingMagnitude < lineMagnitude :
         
-        boxX = int(random(10, width/10))
+        boxX = int(random(20, width/10))
         boxY = int(random(10, height/3))
         boxZ = int(random(10, height/10))
         # boxX = 50
@@ -198,8 +198,8 @@ def createBuildings(lineSegment, orientation, buildingArray=buildings1, amount=1
         #     buildingArray.append(building)
         
     # make skyscraper
-    # skyscraper = len(buildingArray)/2
-    # buildingArray[skyscraper][1] = int(random(60, height/2.5))
+    skyscraper = len(buildingArray)/2
+    buildingArray[skyscraper][1] = int(random(60, height/1.5))
     
                       
 def drawBuildings(streetLine, buildingArray, side):
