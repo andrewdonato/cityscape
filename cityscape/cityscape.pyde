@@ -16,6 +16,7 @@ mapBottom = 0
 mapleft = 0
 mapRight = 0
 alleyway = 5
+shipZ = 0
 
 def setup():
     global mapTop, mapBottom, mapleft, mapRight
@@ -43,8 +44,8 @@ def setup():
     createBuildings(outsideVerticalStreet()[0], "vertical", buildings10, 20)
     
 def draw():
-    global buildings, buildings1
-    frameRate(10)    
+    global buildings, buildings1, shipZ
+    # frameRate(1)    
     # background(125)
     background(105,206,235)
     
@@ -135,17 +136,32 @@ def draw():
     drawBuildings(outsideVerticalStreet()[1], buildings10, "right")
     
     pushMatrix()    
+    # print "I am here"
+    
+    # print shipZ, mapTop
+    translate (0,0,shipZ)    
+    shipZ = shipZ + 10
+    drawShip()
+    if shipZ >= -(3*mapTop):
+        shipZ = -height
+    popMatrix()
+    
+    # pushMatrix() 
     # shipZ = 0
     # while shipZ < mapTop:
-    #     translate(0,0,shipZ)
+    # # for shipZ in range(0, mapTop, 1):
+    #     print "Moving ship"
+    #     print shipZ
+    #     # translate(0,0,shipZ)
     #     drawShip()
-    #     shipZ += 1
-    drawShip()
-    popMatrix()
+    #     shipZ = shipZ + 1
+    # drawShip()
+    # popMatrix()
     
     
     # camera
-    camera(3*mouseX - 2*width , 3*mouseY - 2*height, 2*(height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/10.0, height/2, 0, 1, 0)
+    # camera(3*mouseX - 2*width , 3*mouseY - 2*height, 2*(height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/10.0, height/2, 0, 1, 0)
+    camera(3*mouseX - 2*width , 3*mouseY - 2*height, 2*(height/2.0) / tan(PI*30.0 / 180.0), 2*width/2.0, -height/10.0, -height/2, 0, 1, 0)
 
 
 def showGrid():
@@ -338,7 +354,7 @@ def drawBuildings(streetLine, buildingArray, side):
     
 def drawShip():
     # translate(width/2, -height, 0)
-    translate(width/2, -height, height/2)
+    translate(width/2, -height-(height/2), -height)
     fill(100)
     
     stroke(0)
