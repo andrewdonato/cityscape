@@ -43,7 +43,8 @@ def setup():
     createBuildings(outsideVerticalStreet()[0], "vertical", buildings10, 20)
     
 def draw():
-    global buildings, buildings1    
+    global buildings, buildings1
+    frameRate(10)    
     # background(125)
     background(105,206,235)
     
@@ -65,6 +66,7 @@ def draw():
     # draw grid
     strokeWeight(1)
     showGrid()
+    showSkyGrid()
     
     # draw street lines
     strokeWeight(5)
@@ -78,6 +80,7 @@ def draw():
     line(*rightVerticalStreet()[1])
     line(*outsideVerticalStreet()[0])
     line(*outsideVerticalStreet()[1])
+    
     
     
     # ground
@@ -131,6 +134,16 @@ def draw():
     drawBuildings(outsideVerticalStreet()[0], buildings9, "left")
     drawBuildings(outsideVerticalStreet()[1], buildings10, "right")
     
+    pushMatrix()    
+    # shipZ = 0
+    # while shipZ < mapTop:
+    #     translate(0,0,shipZ)
+    #     drawShip()
+    #     shipZ += 1
+    drawShip()
+    popMatrix()
+    
+    
     # camera
     camera(3*mouseX - 2*width , 3*mouseY - 2*height, 2*(height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/10.0, height/2, 0, 1, 0)
 
@@ -149,6 +162,25 @@ def showGrid():
     
     strokeWeight(5)
     line(mapleft, 0, 0, mapRight, 0 , 0)
+
+def showSkyGrid():
+    pushMatrix()
+    translate(0, mapTop, 0)
+    strokeWeight(1)
+    x = 0
+    while x < width :
+        line(x, 0, 0, x, 0, height)
+        x = x + 50
+    
+    z = 0
+    while z < height :
+        line(0, 0, z, width, 0, z)
+        z = z + 50
+    
+    strokeWeight(5)
+    line(mapleft, 0, 0, mapRight, 0 , 0)
+    popMatrix()
+    
     
 def middleVerticalStreet():
     lineLeft = (width/2 - width/40, 0, 0, width/2 - width/40, 0, height)
@@ -304,7 +336,31 @@ def drawBuildings(streetLine, buildingArray, side):
     
     
     
+def drawShip():
+    # translate(width/2, -height, 0)
+    translate(width/2, -height, height/2)
+    fill(100)
     
+    stroke(0)
+    sphere(10)
+    stroke(50)
+    beginShape()
+    vertex(0,0,80)
+    vertex(20,0,0)
+    vertex(-20,0,0)
+    vertex(0,0,80)
+    endShape()
+    beginShape()
+    vertex(0,0,30)
+    vertex(40,0,-40)
+    vertex(-40,0,-40)
+    vertex(0,0,30)
+    endShape()    
+    
+    # sphere(10)
+    
+    
+        
     
    
     
