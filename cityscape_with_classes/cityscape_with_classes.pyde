@@ -4,13 +4,17 @@ streets = []
 curbs = []
 buildings = []
 
-mapWidth = 1200
-mapHeight = 1200
-mapDepth = 1200
+mapWidth = None
+mapHeight = None
+mapDepth = None
+mapTop = None
+mapBottom = None
+mapleft = None
+mapRight = None
 
 
 
-tileWall = mapWidth
+tileWall = 600
 desiredStreets = [   
     (1*tileWall/8, 0*tileWall/8, 0, 1*tileWall/8, 8*tileWall/8, 0),
     (0*tileWall/8, 4*tileWall/8, 0, 4*tileWall/8, 4*tileWall/8, 0),
@@ -38,11 +42,27 @@ def setup():
     global mapTop, mapBottom, mapleft, mapRight, streets, curbs, buildings
     size(601, 601, P3D)
     
+    mapWidth = width
+    mapHeight = height
+    mapDepth = height
+    mapTop = None
+    mapBottom = None
+    mapleft = None
+    mapRight = None
+    
     
     for i in range(0, len(desiredStreets)):
         streetLine = desiredStreets[i]
         createStreet(streetLine[0], streetLine[1], streetLine[2], streetLine[3], streetLine[4], streetLine[5], i, 30, "both", "two-way")
 
+    # for street in streets:
+    #     if street.visited == False:
+    #         street.findIntersections()
+        
+        
+    for street in streets:
+        street.drawStreet()
+        
                 
     # print streets[0].streetWidth
     # print streets[0].buildingOrientation
@@ -71,12 +91,13 @@ class Street:
         self.streetIndex = streetCreationIndex
         self.streetWidth = streetWidth 
         self.buildingOrientation = buildingOrientation
-        # self.i = index
         self.curbs = []
         self.intersections = []
+        self.intersectsWith = []
         self.angle = None
         self.directionality = directionality
-        self.visited = False
+        # self.visited = False
+        self.lookedForIntersections = False
 
     def createCurbs(self):
         pass
@@ -84,20 +105,23 @@ class Street:
     def connectStreet(self, street):
         pass
 
-    def getBuildings():
+    def getBuildings(self):
         pass
 
     def findIntersections(self, streets):
+        pass            
+
+    def findCorners(self):
+        pass        
+
+    def findAngle(self):
         pass
 
-    def findAngle():
-        pass
-
-    def findVelocity():
+    def findVelocity(self):
         pass
         
-    def drawStreet():
-        pass
+    def drawStreet(self):
+        line(self.xStart, self.yStart, self.zStart, self.xEnd, self.yEnd, self.zEnd)
 
 
 class Curb:
@@ -117,7 +141,7 @@ class Curb:
     def createBuildings(self):
         pass
 
-    def findAngle():
+    def findAngle(self):
         pass
 
 
@@ -127,8 +151,8 @@ class Intersection:
         self.intersectionIndex = intersectionCreationIndex
         self.address = []
 
-    def findAddress():
-        pass
+    # def findAddress():
+    #     pass
 
 
 class Building:
