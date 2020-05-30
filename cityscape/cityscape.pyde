@@ -20,7 +20,7 @@ shipZ = 0
 
 def setup():
     global mapTop, mapBottom, mapleft, mapRight
-    size(701, 701, P3D)
+    size(1201, 701, P3D)
     mapTop = -height
     mapBottom = height
     mapleft = 0
@@ -161,7 +161,7 @@ def draw():
     
     # camera
     # camera(3*mouseX - 2*width , 3*mouseY - 2*height, 2*(height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/10.0, height/2, 0, 1, 0)
-    camera(3*mouseX - 2*width , 3*mouseY - 2*height, 2*(height/2.0) / tan(PI*30.0 / 180.0), 2*width/2.0, -height/10.0, -height/2, 0, 1, 0)
+    camera(3*mouseX - 2*width, 3*mouseY - 2*height, 2*(height/2.0) / tan(PI*30.0 / 180.0), width/2.0, -height/10.0, -height/2, 0, 1, 0)
 
 
 def showGrid():
